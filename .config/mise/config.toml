@@ -1,0 +1,19 @@
+[tools]
+usage = "latest"
+go = "latest"
+golangci-lint = "latest"
+golangci-lint-langserver = "latest"
+node = "20"
+java = "openjdk-21"
+python = "3.12"
+rust = { version = "1.83.0" }
+neovim = "latest"
+fzf = "latest"
+ripgrep = "latest"
+bat = "latest"
+fd = "latest"
+
+[settings]
+trusted_config_paths = [
+  "~/dev/dotfiles"
+]
