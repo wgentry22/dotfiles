@@ -31,8 +31,14 @@ return {
 
 			vim.diagnostic.config(require("user.lsp").diagnostic_config())
 
-			local capabilities = vim.tbl_deep_extend("force", {}, require("blink.cmp").get_lsp_capabilities())
+			local capabilities = vim.tbl_deep_extend(
+				"force",
+				require("lspconfig").util.default_config,
+				require("blink.cmp").get_lsp_capabilities()
+			)
 			capabilities = vim.tbl_deep_extend("force", capabilities, vim.lsp.protocol.make_client_capabilities() or {})
+			capabilities =
+				vim.tbl_deep_extend("force", capabilities, require("lsp-file-operations").default_capabilities())
 
 			require("mason").setup()
 
