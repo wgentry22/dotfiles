@@ -14,25 +14,37 @@ return {
 	"nvim-lualine/lualine.nvim",
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
-		"SmiteshP/nvim-navic",
+		"folke/trouble.nvim",
 	},
-	opts = {
-		theme = require("user.colorscheme").get_color_scheme(),
-		sections = {
-			lualine_c = { fileName },
-			lualine_x = {
-				{
-					function()
-						return require("nvim-navic").get_location()
-					end,
-					cond = function()
-						return require("nvim-navic").is_available()
-					end,
+	opts = function(_, opts)
+		local trouble = require("trouble")
+		local symbols = trouble.statusline({
+			mode = "lsp_document_symbols",
+			groups = {},
+			title = false,
+			filter = { range = true },
+			format = "{kind_icon}{symbol.name:Normal}",
+			hl_group = "lualine_c_normal",
+		})
+
+		local o = {
+			theme = require("user.colorscheme").get_color_scheme(),
+			sections = {
+				lualine_c = {
+					fileName,
+					{
+						symbols.get,
+						cond = symbols.has,
+					},
 				},
-				"encoding",
-				"fileformat",
+				lualine_x = {
+					"encoding",
+					"fileformat",
+				},
+				lualine_z = {},
 			},
-			lualine_z = {},
-		},
-	},
+		}
+
+		return vim.tbl_deep_extend("force", opts, o)
+	end,
 }

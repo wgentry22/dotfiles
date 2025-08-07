@@ -33,5 +33,6 @@ return {
 		vim.keymap.set("n", "<leader>fw", builtin.live_grep, { desc = "[F]ind [W]ord" })
 		vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "[F]ind [D]iagnostics" })
 		vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "[F]ind [B]uffers" })
+		vim.keymap.set("n", "<leader>fd", "<cmd>TodoTelescope<cr>", { desc = "[F]ind To[D]os" })
 	end,
 }
